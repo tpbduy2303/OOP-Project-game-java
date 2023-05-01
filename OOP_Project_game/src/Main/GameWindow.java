@@ -6,7 +6,7 @@ public class GameWindow {
     private JFrame jframe;
     public GameWindow(GamePanel gamePanel) {
         jframe = new JFrame(null, null);
-        jframe.setSize(400, 400);
+        jframe.setSize(1900	, 1200);
         jframe.setVisible(true);
         jframe.add(gamePanel);
         jframe.setLocationRelativeTo(null);
