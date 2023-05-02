@@ -15,18 +15,18 @@ import java.io.IOException;
 import java.io.InputStream;
 public class GamePanel extends JPanel{
     private MouseInputs mouseInputs;
+    private Game game;
     private int xDel = 100, yDel = 100;
-    private int frames;
-    private long lastCheck = 0;
     private int xDir = 1, yDir = 1;
-    private BufferedImage img, subImg;
+    private BufferedImage img;
     private BufferedImage[][] animations;
     private int aniTick, aniIndex, aniSpeed = 30;
-    private int playerAction = RUNNING;
+    private int playerAction = IDLE;
     private int playerDir = -1;
     private boolean moving = false;
     
-    public GamePanel(){
+    public GamePanel(Game game){
+    	this.game = game;
     	setPanelSize();
     	importImg();
     	loadAnimation();
@@ -53,9 +53,8 @@ public class GamePanel extends JPanel{
 		}
 	}
 	private void setPanelSize() {
-		Dimension size = new Dimension();
+		Dimension size = new Dimension(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		setPreferredSize(size);
-		setMaximumSize(size);
 	}
 	public void setDirection(int direction) {
 		this.playerDir = direction;
@@ -64,14 +63,15 @@ public class GamePanel extends JPanel{
 	public void setMoving (boolean moving) {
 		this.moving = moving;
 	}
-    
+	public void updateGame() {
+		updateAnimationTick();
+	    setAnimation();
+	    updatePos();
+	}
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        updateAnimationTick();
-        setAnimation();
-        updatePos();
-        
-       g.drawImage(animations[playerAction][aniIndex], (int) xDel, (int) yDel,200,200, null);
+        game.render(g);
+       g.drawImage(animations[playerAction][aniIndex], (int) xDel, (int) yDel, (int)(64*Game.SCALE),(int)(64*Game.SCALE), null);
     }
     private void updatePos() {
     	if (moving) {
