@@ -71,7 +71,7 @@ public class GamePanel extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         game.render(g);
-       g.drawImage(animations[playerAction][aniIndex], (int) xDel, (int) yDel, (int)(64*Game.SCALE),(int)(64*Game.SCALE), null);
+       g.drawImage(animations[playerAction][aniIndex], (int) xDel, (int) yDel, (int)(200*Game.SCALE),(int)(200*Game.SCALE), null);
     }
     private void updatePos() {
     	if (moving) {
