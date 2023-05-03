@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.Graphics;
 
+import entities.Player;
 import levels.LevelManager;
 
 public class Game implements Runnable {
@@ -10,6 +11,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
+    private Player player;
 	private LevelManager levelManager;
     
 	public final static int TILES_DEFAULT_SIZE = 32;
@@ -32,13 +34,15 @@ public class Game implements Runnable {
         gameThread.start();
     }
 	private void update() {
-		gamePanel.updateGame();
+		player.update();
 		levelManager.update();
 	}
 	public void render(Graphics g) {
 		levelManager.draw(g);
+		player.render(g);
 	}
 	private void initClasses() {
+		player = new Player(200, 200, 100, 100);
 		levelManager = new LevelManager(this);
 	}
     @Override
@@ -79,4 +83,10 @@ public class Game implements Runnable {
             }
         }
     }
+	public void windowFocusLost() {
+		player.resetDirBooleans();
+	}
+	public Player getPlayer() {
+		return player;
+	}
 }
