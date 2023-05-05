@@ -39,8 +39,7 @@ public class Player extends Entity{
 	    setAnimation();
 	}
 	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, (int)(64*Game.SCALE),(int)(64*Game.SCALE), null);
-
+		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
 	}
 	
     private void updatePos() {
