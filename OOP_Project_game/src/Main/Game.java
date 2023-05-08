@@ -2,6 +2,8 @@ package Main;
 
 import java.awt.Graphics;
 
+import entities.EnemyManager;
+import entities.Fire_dude;
 import entities.Player;
 import levels.LevelManager;
 
@@ -13,7 +15,7 @@ public class Game implements Runnable {
     private final int UPS_SET = 200;
     private Player player;
 	private LevelManager levelManager;
-    
+
 	public final static int TILES_DEFAULT_SIZE = 32;
 	public final static float SCALE = 1.5f;
 	public final static int TILES_IN_WIDTH = 26;

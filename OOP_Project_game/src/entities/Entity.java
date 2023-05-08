@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.*;
+
 public abstract class Entity {
 
 	protected float x, y;
