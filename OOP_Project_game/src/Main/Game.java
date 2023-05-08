@@ -44,8 +44,10 @@ public class Game implements Runnable {
 		player.render(g);
 	}
 	private void initClasses() {
+        levelManager = new LevelManager(this);
 		player = new Player(200, 200, 100, 100);
-		levelManager = new LevelManager(this);
+        player.loadvlData(levelManager.getCurrentLevel().getLvlData());
+
 	}
     @Override
     public void run(){
