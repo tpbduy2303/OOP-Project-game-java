@@ -1,6 +1,6 @@
 package entities;
 
-imort static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.CanMoveHere;
 import static utilz.Constants.Directions.DOWN;
 import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.Directions.RIGHT;
