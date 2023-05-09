@@ -1,5 +1,6 @@
 package entities;
 
+imort static utilz.HelpMethods.CanMoveHere;
 import static utilz.Constants.Directions.DOWN;
 import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.Directions.RIGHT;
@@ -25,7 +26,7 @@ public class Player extends Entity{
     private int aniTick, aniIndex, aniSpeed = 30;
     private int playerAction = IDLE;
 	private boolean moving = false, attacking = false;
-	private boolean left, up, right, down;
+	private boolean left, up, right, down, jump;
 	private float playerSpeed = 2.0f;
 
 	public Player(float x, float y, int width, int height) {
@@ -44,20 +45,26 @@ public class Player extends Entity{
 	
     private void updatePos() {
 		moving = false;
+		
+	    	if(!left && !right && !up &&!down)
+			return;
+	    
+	    	float xSpeed = 0, yspeed = 0;
+			
+		if (left && !right) 
+			xSpeed = - playerSpeed;
 
-		if (left && !right) {
-			x -= playerSpeed;
-			moving = true;
-		} else if (right && !left) {
-			x += playerSpeed;
-			moving = true;
-		}
+		else if (right && !left) 
+			xSpeed = playerSpeed;
 
-		if (up && !down) {
-			y -= playerSpeed;
-			moving = true;
-		} else if (down && !up) {
-			y += playerSpeed;
+		if (up && !down) 
+			yspeed = -playerSpeed;
+		
+		else if (down && !up) 
+			yspeed = -playerSpeed;
+		if(CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData)){
+			this.x +=xSpeed;
+			this.y +=ySpeed;
 			moving = true;
 		}
 	}
@@ -96,7 +103,9 @@ public class Player extends Entity{
 				}
 			}
     }
-
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = 	lvlData;
+	}
 	public void resetDirBooleans() {
 		left = false;
 		right = false;
