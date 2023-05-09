@@ -1,6 +1,6 @@
 package entities;
 
-import static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.*;
 import static utilz.Constants.Directions.DOWN;
 import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.Directions.RIGHT;
@@ -31,8 +31,13 @@ public class Player extends Entity{
 	private int[][] lvlData;
 	private float xDrawOffset = 21 * Game.SCALE;
 	private float yDrawOffset = 4 * Game.SCALE;
+	private float airSpeed = 0f;
+	private float gravity = 0.04f * Game.SCALE;
+	private float jumpSpeed = -2.25 * Game.SCALE;
+	private float fallSpeedAfterCollision = 0.5 * Game.SCALE;
+	private boolean inAir = false;
 	
-	public Player(float x, float y, int width, int height) {
+	public Player(float x, floa y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimation();
 		initHitbox(x, y, 20 * Game.SCALE, 28* Game.SCALE);
@@ -50,28 +55,58 @@ public class Player extends Entity{
 	
     private void updatePos() {
 		moving = false;
-		
-	    	if(!left && !right && !up &&!down)
+
+		if (jump)
+			jump();
+		if (!left && !right && !inAir)
 			return;
-	    
-	    	float xSpeed = 0, yspeed = 0;
+
+		float xSpeed = 0;
+
+		if (left)
+			xSpeed -= playerSpeed;
+		if (right)
+			xSpeed += playerSpeed;
+
+		if (!inAir)
+			if (!IsEntityOnFloor(hitbox, lvlData))
+				inAir = true;
+
+		if (inAir) {
+			if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
+				hitbox.y += airSpeed;
+				airSpeed += gravity;
+				updateXPos(xSpeed);
+			} else {
+				hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+				if (airSpeed > 0)
+					resetInAir();
+				else
+					airSpeed = fallSpeedAfterCollision;
+				updateXPos(xSpeed);
+			}
 			
-		if (left && !right) 
-			xSpeed = - playerSpeed;
+	private void jump() {
+		if (inAir)
+			return;
+		inAir = true;
+		airSpeed = jumpSpeed;
 
-		else if (right && !left) 
-			xSpeed = playerSpeed;
+	}
 
-		if (up && !down) 
-			yspeed = -playerSpeed;
-		
-		else if (down && !up) 
-			yspeed = -playerSpeed;
-		if(CanMoveHere(hitbox.x+xSpeed, hitbox.y+ySpeed, hitbox.width, hitbox.height, lvlData)){
-			hitbox.x +=xSpeed;
-			hitbox.y +=ySpeed;
-			moving = true;
+	private void resetInAir() {
+		inAir = false;
+		airSpeed = 0;
+
+	}
+
+	private void updateXPos(float xSpeed) {
+		if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+			hitbox.x += xSpeed;
+		} else {
+			hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
 		}
+
 	}
 	private void setAnimation() {
 		int startAni = playerAction;
