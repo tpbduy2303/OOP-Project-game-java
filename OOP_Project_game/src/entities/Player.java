@@ -165,7 +165,12 @@ public class Player extends Entity{
     		}
     	}
 	}
-	
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = lvlData;
+		if (!IsEntityOnFloor(hitbox, lvlData))
+			inAir = true;
+
+	}
     private void loadAnimation() {
 			BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 			animations = new BufferedImage[4][6];
