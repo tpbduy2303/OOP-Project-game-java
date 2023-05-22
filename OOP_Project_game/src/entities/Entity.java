@@ -17,6 +17,7 @@ public abstract class Entity {
 		this.height = height;
 	}
 
+
 	protected void drawHitbox(Graphics g){
 		g.setColor(Color.BLUE);
 		g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
@@ -25,12 +26,13 @@ public abstract class Entity {
 	protected void iniHitbox(float x, float y, float width, float height){
 		hitbox = new Rectangle2D.Float(x,y,width,height);
 	}
-//	public void updateHitbox(){
+	//	public void updateHitbox(){
 //		hitbox.x = (int)x;
 //		hitbox.y = (int)y;
 //	}
 	public Rectangle2D.Float getHitbox(){
-			return hitbox;
+		return hitbox;
 	}
 
 }
+
