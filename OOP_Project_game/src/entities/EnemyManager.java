@@ -36,7 +36,6 @@ public class EnemyManager {
         for (Fire_dude c : Fire_Dudes) {
             //Enemy size
             g.drawImage(firedudeArr[c.getAniIndex()],(int)c.getHitbox().x,(int)c.getHitbox().y,FIRE_DUDE_WIDTH*2,FIRE_DUDE_HEIGHT*2,null);
-            c.drawHitbox(g);
         }
     }
 
