@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import utilz.LoadSave;
@@ -12,6 +13,7 @@ import Main.Game;
 public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
+    private EnemyManager enemyManager;
 
 	private int xLvlOffset;
 	private	int newStageOffset = 0;
@@ -35,6 +37,7 @@ public class Playing extends State implements Statemethods {
     }
     private void initClasses() {
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this.getGame());
         player = new Player(200, 200, 100, 100);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         backgroundgame1 = LoadSave.GetSpriteAtlas(LoadSave.GAME_BACKGROUND_IMG1);
@@ -47,6 +50,8 @@ public class Playing extends State implements Statemethods {
     public void update() {
         levelManager.update();
         player.update();
+      enemyManager.udpate(levelManager.getCurrentLevel().getLvlData());
+
 		checkCloseToBorder();
 		if (player.standingStable()) {
 			levelManager.setStable(false);
@@ -89,6 +94,7 @@ public class Playing extends State implements Statemethods {
 	
 	@Override
     public void draw(Graphics g) {
+
 		if (xLvlOffset > Stage3 - 1)
 			g.drawImage(backgroundgame4, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		else if (xLvlOffset > Stage2 - 1)
@@ -100,6 +106,9 @@ public class Playing extends State implements Statemethods {
 		
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
+
+        enemyManager.draw(g);
+
     }
 
     @Override
@@ -147,9 +156,9 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
                 break;
-            case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state = Gamestate.MENU;
-                break;
+//            case KeyEvent.VK_BACK_SPACE:
+//                Gamestate.state = Gamestate.MENU;
+//                break;
         }
     }
 
