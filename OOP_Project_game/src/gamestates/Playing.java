@@ -4,12 +4,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import Main.Game;
 public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
+    private EnemyManager enemyManager;
 
     public Playing(Game game) {
         super(game);
@@ -17,6 +19,7 @@ public class Playing extends State implements Statemethods {
     }
     private void initClasses() {
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this.getGame());
         player = new Player(200, 200, 100, 100);
         player.loadvlData(levelManager.getCurrentLevel().getLvlData());
 
@@ -25,12 +28,14 @@ public class Playing extends State implements Statemethods {
     public void update() {
         levelManager.update();
         player.update();
+        enemyManager.udpate(levelManager.getCurrentLevel().getLvlData());
     }
 
     @Override
     public void draw(Graphics g) {
         levelManager.draw(g);
         player.render(g);
+        enemyManager.draw(g);
     }
 
     @Override
@@ -75,9 +80,9 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
                 break;
-            case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state = Gamestate.MENU;
-                break;
+//            case KeyEvent.VK_BACK_SPACE:
+//                Gamestate.state = Gamestate.MENU;
+//                break;
         }
     }
 

@@ -33,7 +33,7 @@ public class Player extends Entity{
 	private boolean left, up, right, down, jump;
 	private float playerSpeed = 2.0f;
 	private  int [][] lvlData;
-	//reposition hitbox
+	//reposition hitbox for main character
 	private float xDrawOffset = 16 * Game.SCALE;
 	private float yDrawOffset = 7 * Game.SCALE;
 	// Jumping / gravity
