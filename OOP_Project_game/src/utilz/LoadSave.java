@@ -19,6 +19,11 @@ public class LoadSave {
 	public static final String LEVEL = "Element_Zone_Castle_Tileset.png";
 	public static final String MENU_BUTTONS = "button_atlas.png";
 	public static final String MENU_BACKGROUND = "menu_background.png";
+	public static final String MENU_BACKGROUND_IMG = "background.png";
+	public static final String GAME_BACKGROUND_IMG1 = "backgroundgame1.png";
+	public static final String GAME_BACKGROUND_IMG2 = "backgroundgame2.jpg";
+	public static final String GAME_BACKGROUND_IMG3 = "backgroundgame3.jpeg";
+	public static final String GAME_BACKGROUND_IMG4 = "backgroundgame4.jpeg";
 	public static final String FIRE_DUDE = "Fire_Dude.png";
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
@@ -53,8 +58,8 @@ public class LoadSave {
 	}
 
 	public static int[][] GetLevelData() {
-		int[][] lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
 		BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+		int[][] lvlData = new int[img.getHeight()][img.getWidth()];
 
 		for (int j = 0; j < img.getHeight(); j++)
 			for (int i = 0; i < img.getWidth(); i++) {

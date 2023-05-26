@@ -10,11 +10,29 @@ public class HelpMethods {
             if(!IsSolid(x+width,y+height,lvlData))
                 if(!IsSolid(x+width,y,lvlData))
                     if (!IsSolid(x,y+height,lvlData))
-                        return true;
+                    	if (!IsSolid(x,y+(height/2),lvlData))
+                    		if (!IsSolid(x+width,y+(height/2),lvlData))
+                    			return true;
         return false;
     }
+    public static boolean ifBlockStable(float x, float y, float width, float height, int[][] lvlData) {
+        if (checkChangeBlock(x-9,y+1,lvlData))
+			return false;
+        if (checkChangeBlock(x+width+20,y+height+1,lvlData))
+			return false;
+        if (checkChangeBlock(x+width+1,y+1,lvlData))
+        	return false;
+        if (checkChangeBlock(x,y+height+1,lvlData))
+        	return false;
+        if (checkChangeBlock(x-1,y+(height/2),lvlData))
+        	return false;
+        if (checkChangeBlock(x+width+1,y+(height/2),lvlData))
+        	return false;
+        return true;
+    }
     private static boolean IsSolid(float x, float y,int[][] lvlData){
-        if (x < 0 || x >= Game.GAME_WIDTH){
+		int maxWidth = lvlData[0].length * Game.TILES_SIZE;
+		if (x < 0 || x >= maxWidth) {
             return true;
         }
         if (y < 0 || y >= Game.GAME_HEIGHT){
@@ -25,38 +43,56 @@ public class HelpMethods {
 
         int value = lvlData[(int)yIndex][(int)xIndex];
 
-        if(value >= 240 || value < 0 || value != 24){
-            // System.out.println("touch block");
-            return true;
-        }return false;
+		if (value == 24 || value == 214 || value == 158 || value == 213 || value == 193 ||
+			value == 194|| value == 137 || value == 138 || value == 157 || value == 148 ||
+			value == 149|| value == 168 || value == 169 || value == 154 || value == 133 ||
+			value == 134|| value == 153 || value == 96  || value == 97  || value == 36  ||
+			value == 37 || value == 175)
+			return false;
+		return true;
+    }
+    private static boolean checkChangeBlock(float x, float y, int[][] lvlData) {
+		int maxWidth = lvlData[0].length * Game.TILES_SIZE;
+		if (x < 0 || x >= maxWidth) {
+            return false;
+        }
+    	if (y < 0 || y >= Game.GAME_HEIGHT){
+            return false;
+        }
+    	float xIndex = x / Game.TILES_SIZE;
+        float yIndex = y / Game.TILES_SIZE;
 
+        int value = lvlData[(int)yIndex][(int)xIndex];
+
+		if (value == 176)
+			return true;
+		return false;
     }
 
     public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
-        int currentTile = (int)hitbox.x/ Game.TILES_SIZE;
+		int currentLeftTile = (int) (hitbox.x / Game.TILES_SIZE);
+		int currentRightTile = (int) ((hitbox.x + hitbox.width) / Game.TILES_SIZE);
         if (xSpeed > 0){
             //Right
-            int tilesXPos = currentTile * Game.TILES_SIZE;
+            int tilesXPos = currentRightTile * Game.TILES_SIZE;
             int xOffset = (int)(Game.TILES_SIZE - hitbox.width);
-            return tilesXPos + xOffset - 1;
+            return tilesXPos + xOffset - 20;
         }else {
             //Left
-            return currentTile * Game.TILES_SIZE;
+            return currentLeftTile * Game.TILES_SIZE + 8;
         }
     }
     public static float GetEntityYPosUnderRoofOrAboveFloor(Rectangle2D.Float hitbox, float airSpeed) {
-        int currentTile = (int)hitbox.y/ Game.TILES_SIZE;
-        if (airSpeed > 0){
-            //Falling - Touching floor
-            int tilesYPos = currentTile * Game.TILES_SIZE;
-            int yOffset = (int)(Game.TILES_SIZE - 22);
-            // int yOffset = (int)(Game.TILES_SIZE - hitbox.height);
-            // Can have error when resize player hitbox
-            return tilesYPos + yOffset -1;
-        }else {
-            // Jumping
-            return currentTile * Game.TILES_SIZE;
-        }
+		int currentTopTile = (int) (hitbox.y / Game.TILES_SIZE);
+		int currentBottomTile = (int) ((hitbox.y + hitbox.height) / Game.TILES_SIZE);
+		if (airSpeed > 0) {
+			// Falling - touching floor
+			int tileYPos = currentBottomTile * Game.TILES_SIZE;
+			int yOffset = (int) (Game.TILES_SIZE - hitbox.height);
+			return tileYPos + yOffset - 1;
+		} else
+			// Jumping
+			return currentTopTile * Game.TILES_SIZE;
     }
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox,int[][]lvlData){
         //Check the picxel below bettomleft and bottomright

@@ -42,8 +42,9 @@ public class Constants {
 		public static class PlayerConstants {
 			public static final int IDLE = 3;
 			public static final int RUNNING = 0;
+			public static final int RUNNING2 = 5;
 
-			public static final int JUMP = 4;
+			public static final int ATTACK_2 = 4;
 			public static final int HIT = 1;
 			public static final int ATTACK_1 = 2;
 
@@ -53,8 +54,9 @@ public class Constants {
 						return 4;
 					case HIT:
 						return 5;
-					case RUNNING:
-					case JUMP:
+					case RUNNING:					
+					case RUNNING2:
+					case ATTACK_2:
 					case ATTACK_1:
 						return 6;
 
