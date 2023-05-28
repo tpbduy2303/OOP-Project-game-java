@@ -1,7 +1,6 @@
 package utilz;
 
 import java.awt.Color;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import Main.Game;
 import entities.Fire_dude;
+import entities.Ice_dude;
 
 public class LoadSave {
 
@@ -25,6 +25,8 @@ public class LoadSave {
 	public static final String GAME_BACKGROUND_IMG3 = "backgroundgame3.jpeg";
 	public static final String GAME_BACKGROUND_IMG4 = "backgroundgame4.jpeg";
 	public static final String FIRE_DUDE = "Fire_Dude.png";
+	public static final String ICE_DUDE = "Ice_Dude.png";
+	public static final String STATUS_BAR = "health_power_bar.png";
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;
@@ -53,6 +55,18 @@ public class LoadSave {
 				int value = color.getGreen();
 				if (value == Constants.EnemyConstants.FIRE_DUDE)
 				list.add(new Fire_dude(i*Game.TILES_SIZE, j*Game.TILES_SIZE));
+			}
+		return list;
+	}
+	public static ArrayList<Ice_dude> Get_Ice_dude(){
+		BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+		ArrayList<Ice_dude> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getGreen();
+				if (value == Constants.EnemyConstants.ICE_DUDE)
+					list.add(new Ice_dude(i*Game.TILES_SIZE, j*Game.TILES_SIZE));
 			}
 		return list;
 	}

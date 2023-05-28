@@ -19,26 +19,67 @@ public class Constants {
 	}
 	public static class EnemyConstants {
 		public static final int FIRE_DUDE = 0;
+		public static final int ICE_DUDE = 1;
 		public static final int IDLE = 0;
-
+		public static final int ATTACK = 1;
 		public static final int FIRE_DUDE_WIDTH_DEFAULT = 32;
-		public static final int FIRE_DUDE_HEIGHT_DEFAULT = 15;
+		public static final int FIRE_DUDE_HEIGHT_DEFAULT = 16;
 		public static final int FIRE_DUDE_WIDTH = (int) (FIRE_DUDE_WIDTH_DEFAULT * Game.SCALE);
 		public static final int FIRE_DUDE_HEIGHT = (int) (FIRE_DUDE_HEIGHT_DEFAULT * Game.SCALE);
+		public static final int ICE_DUDE_WIDTH_DEFAULT = 16;
+		public static final int ICE_DUDE_HEIGHT_DEFAULT = 16;
+		public static final int ICE_DUDE_WIDTH = (int) (ICE_DUDE_WIDTH_DEFAULT * Game.SCALE);
+		public static final int ICE_DUDE_HEIGHT = (int) (ICE_DUDE_HEIGHT_DEFAULT * Game.SCALE);
 
-		public static final int FIRE_DUDE_DRAWOFFSET_X = (int)(26*Game.SCALE);
-		public static final int FIRE_DUDE_DRAWOFFSET_Y = (int)(9*Game.SCALE);
+		public static final int FIRE_DUDE_DRAWOFFSET_X = (int)(10*Game.SCALE);
+
+		public static final int ICE_DUDE_DRAWOFFSET_X = (int)(0*Game.SCALE);
+
+		public static final int FIRE_DUDE_DRAWOFFSET_Y = (int)(0*Game.SCALE);
+		public static final int ICE_DUDE_DRAWOFFSET_Y = (int)(0*Game.SCALE);
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
-			switch (enemy_state) {
+			switch (enemy_type) {
 				case FIRE_DUDE:
 					switch (enemy_state) {
+						case IDLE, ATTACK:
+							return 4;
+
+					}
+				case ICE_DUDE:
+					switch (enemy_state) {
 						case IDLE:
-							return 8;
+							return 6;
+						case ATTACK:
+							return 4;
 					}
 			}
 			return 0;
 
 		}
+		public static int GetMaxHealth(int enemy_type) {
+			switch (enemy_type) {
+				case FIRE_DUDE:
+					return 10;
+				case ICE_DUDE:
+					return 15;
+				default:
+					return 1;
+			}
+		}
+
+		public static int GetEnemyDmg(int enemy_type) {
+			switch (enemy_type) {
+				case FIRE_DUDE:
+					return 15;
+
+				case ICE_DUDE:
+					return 3;
+				default:
+					return 0;
+			}
+
+		}
+
 	}
 
 		public static class PlayerConstants {

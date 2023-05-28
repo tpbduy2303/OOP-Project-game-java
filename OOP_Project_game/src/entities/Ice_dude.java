@@ -1,35 +1,31 @@
 package entities;
 
-import Main.*;
 import Main.Game;
-import gamestates.Playing;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Directions.LEFT;
+import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
-import static utilz.Constants.Directions.*;
 
-public class Fire_dude extends Enemy{
+public class Ice_dude extends Enemy {
     private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
-    public Fire_dude(float x, float y) {
-        super(x, y, FIRE_DUDE_WIDTH,FIRE_DUDE_HEIGHT , FIRE_DUDE);
-        iniHitbox( x,  y,(int) 45* Game.SCALE,(int) 32*Game.SCALE);
+    public Ice_dude(float x, float y) {
+        super(x, y, ICE_DUDE_WIDTH, ICE_DUDE_HEIGHT, ICE_DUDE);
+        iniHitbox(x, y, (int) 30 * Game.SCALE, (int) 32 * Game.SCALE);
         initAttackBox();
 
     }
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (82 * Game.SCALE), (int) (25 * Game.SCALE));
-        attackBoxOffsetX = (int) (Game.SCALE * 20);
+        attackBox = new Rectangle2D.Float(x, y, (int) (40 * Game.SCALE), (int) (32 * Game.SCALE));
+        attackBoxOffsetX = (int) (Game.SCALE * 5);
     }
+
     public void update(int[][] lvlData, Player player){
         updateAnimationTick();
         updateMove(lvlData, player);
         updateAttackBox();
-
     }
     private void updateAttackBox() {
         attackBox.x = hitbox.x - attackBoxOffsetX;
@@ -60,10 +56,12 @@ public class Fire_dude extends Enemy{
                         attackChecked = false;
 
                     // Changed the name for checkEnemyHit to checkPlayerHit
-                    if (aniIndex == 3 && !attackChecked)
+                    if (aniIndex == 2 || !attackChecked)
                         checkPlayerHit(attackBox, player);
 
                     break;
+
+
             }
         }
     }
@@ -71,7 +69,6 @@ public class Fire_dude extends Enemy{
         g.setColor(Color.red);
         g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
-
     public int flipX() {
         if (walkDir == RIGHT)
             return width;
