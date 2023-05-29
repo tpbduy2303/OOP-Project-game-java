@@ -2,19 +2,21 @@ package entities;
 
 import Main.*;
 import Main.Game;
-import gamestates.Playing;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Directions.LEFT;
+
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
+
 import static utilz.Constants.Directions.*;
 
 public class Fire_dude extends Enemy{
     private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
+    private int healthBarWidth = (int) (50 * Game.SCALE);
+    private int healthBarHeight = (int) (4 * Game.SCALE);
+    private int healthWidth = healthBarWidth;
     public Fire_dude(float x, float y) {
         super(x, y, FIRE_DUDE_WIDTH,FIRE_DUDE_HEIGHT , FIRE_DUDE);
         iniHitbox( x,  y,(int) 45* Game.SCALE,(int) 32*Game.SCALE);
@@ -29,7 +31,10 @@ public class Fire_dude extends Enemy{
         updateAnimationTick();
         updateMove(lvlData, player);
         updateAttackBox();
-
+        updateHPBar();
+    }
+    private void updateHPBar() {
+        healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
     private void updateAttackBox() {
         attackBox.x = hitbox.x - attackBoxOffsetX;
@@ -49,10 +54,11 @@ public class Fire_dude extends Enemy{
                 // case IDLE:
                 //    enemyState = RUNNING
                 case IDLE: //RUNNING
-                    if (canSeePlayer(lvlData, player))
+                    if (canSeePlayer(lvlData, player)) {
                         turnTowardsPlayer(player);
-                    if (isPlayerCloseForAttack(player))
-                        newState(ATTACK);
+                        if (isPlayerCloseForAttack(player))
+                            newState(ATTACK);
+                    }
                     move(lvlData);
                     break;
                 case ATTACK:
@@ -85,5 +91,9 @@ public class Fire_dude extends Enemy{
         else
             return 1;
 
+    }
+    public void drawHP(Graphics g, int xLvlOffset) {
+        g.setColor(Color.red);
+        g.fillRect((int) hitbox.x- xLvlOffset, (int) hitbox.y, healthWidth, healthBarHeight);
     }
 }

@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import Main.Game;
+import entities.Akaza;
 import entities.Fire_dude;
 import entities.Ice_dude;
+import entities.Trap;
 
 public class LoadSave {
 
@@ -18,15 +20,23 @@ public class LoadSave {
 	public static final String LEVEL_ONE_DATA = "level_one_data.png";
 	public static final String LEVEL = "Element_Zone_Castle_Tileset.png";
 	public static final String MENU_BUTTONS = "button_atlas.png";
+	public static final String URM_BUTTONS = "urm_buttons.png";
+	public static final String GAME_COMPLETED = "game_completed.png";
 	public static final String MENU_BACKGROUND = "menu_background.png";
 	public static final String MENU_BACKGROUND_IMG = "background.png";
 	public static final String GAME_BACKGROUND_IMG1 = "backgroundgame1.png";
 	public static final String GAME_BACKGROUND_IMG2 = "backgroundgame2.jpg";
 	public static final String GAME_BACKGROUND_IMG3 = "backgroundgame3.jpeg";
 	public static final String GAME_BACKGROUND_IMG4 = "backgroundgame4.jpeg";
+
+
 	public static final String FIRE_DUDE = "Fire_Dude.png";
 	public static final String ICE_DUDE = "Ice_Dude.png";
 	public static final String STATUS_BAR = "health_power_bar.png";
+
+	public static final String AKAZA = "Akaza.png";
+	public static final String TRAP = "trap_atlas.png";
+	public static final String DEATH_SCREEN = "death_screen.png";
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;
@@ -85,4 +95,29 @@ public class LoadSave {
 
 	}
 
+	public static ArrayList<Akaza> Get_Akaza() {
+		BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+		ArrayList<Akaza> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getGreen();
+				if (value == Constants.EnemyConstants.AKAZA)
+					list.add(new Akaza(i*Game.TILES_SIZE, j*Game.TILES_SIZE));
+			}
+		return list;
+	}
+
+	public static ArrayList<Trap> Get_Trap() {
+		BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+		ArrayList<Trap> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getGreen();
+				if (value == Constants.EnemyConstants.TRAP)
+					list.add(new Trap(i*Game.TILES_SIZE, j*Game.TILES_SIZE));
+			}
+		return list;
+	}
 }

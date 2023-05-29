@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
+import ui.GameCompletedOverlay;
 import ui.GameOverOverlay;
 import utilz.LoadSave;
 import Main.Game;
@@ -17,6 +18,7 @@ public class Playing extends State implements Statemethods {
     private LevelManager levelManager;
     private EnemyManager enemyManager;
     private GameOverOverlay gameOverOverlay;
+    private GameCompletedOverlay gameCompletedOverLay;
     private boolean paused = false;
 
 	private int xLvlOffset;
@@ -35,6 +37,7 @@ public class Playing extends State implements Statemethods {
 	private BufferedImage backgroundgame3;
 	private BufferedImage backgroundgame4;
     private boolean gameOver;
+    private boolean gameCompleted;
 
     public Playing(Game game) {
         super(game);
@@ -42,7 +45,7 @@ public class Playing extends State implements Statemethods {
     }
     private void initClasses() {
         levelManager = new LevelManager(game);
-        enemyManager = new EnemyManager(this.getGame());
+        enemyManager = new EnemyManager(this.getGame(),this);
         player = new Player(200, 200, 100, 100, this);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         backgroundgame1 = LoadSave.GetSpriteAtlas(LoadSave.GAME_BACKGROUND_IMG1);
@@ -50,6 +53,7 @@ public class Playing extends State implements Statemethods {
         backgroundgame3 = LoadSave.GetSpriteAtlas(LoadSave.GAME_BACKGROUND_IMG3);
         backgroundgame4 = LoadSave.GetSpriteAtlas(LoadSave.GAME_BACKGROUND_IMG4);
         gameOverOverlay = new GameOverOverlay(this);
+        gameCompletedOverLay = new GameCompletedOverlay(this);
     }
     @Override
     public void update() {
@@ -112,11 +116,14 @@ public class Playing extends State implements Statemethods {
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
         enemyManager.draw(g, xLvlOffset);
-       if (gameOver)
-            gameOverOverlay.draw(g);
+       if (gameOver) {
+           gameOverOverlay.draw(g);
+       }else if (gameCompleted)
+           gameCompletedOverLay.draw(g);
     }
     public void resetAll() {
         gameOver = false;
+        gameCompleted = false;
         paused = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
@@ -124,6 +131,9 @@ public class Playing extends State implements Statemethods {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+    public void setGameCompleted(boolean gameCompleted) {
+        this.gameCompleted = gameCompleted;
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
@@ -139,16 +149,30 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (gameOver) {
+            gameOverOverlay.mousePressed(e);
+        } else if (gameCompleted)
+            gameCompletedOverLay.mousePressed(e);
+
+
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (gameOver) {
+            gameOverOverlay.mouseReleased(e);
+        }else if (gameCompleted)
+            gameCompletedOverLay.mouseReleased(e);
 
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        if (gameOver) {
+            gameOverOverlay.mouseMoved(e);
+        } else if (gameCompleted)
+                gameCompletedOverLay.mouseMoved(e);
 
     }
 
@@ -211,5 +235,12 @@ public class Playing extends State implements Statemethods {
     }
     public Player getPlayer() {
         return player;
+    }
+
+    public void resetGameCompleted() {
+        gameCompleted = false;
+    }
+
+    public void setGamestate(Gamestate menu) {
     }
 }

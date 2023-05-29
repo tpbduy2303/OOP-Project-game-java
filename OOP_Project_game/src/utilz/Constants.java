@@ -16,12 +16,23 @@ public class Constants {
 			public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * Game.SCALE);
 			public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * Game.SCALE);
 		}
+		public static class URMButtons {
+			public static final int URM_DEFAULT_SIZE = 56;
+			public static final int URM_SIZE = (int) (URM_DEFAULT_SIZE * Game.SCALE);
+
+		}
 	}
 	public static class EnemyConstants {
 		public static final int FIRE_DUDE = 0;
 		public static final int ICE_DUDE = 1;
+		public static final int AKAZA = 2;
+		public static final int TRAP = 3;
+
+
 		public static final int IDLE = 0;
 		public static final int ATTACK = 1;
+		public static final int DEAD = 2;
+
 		public static final int FIRE_DUDE_WIDTH_DEFAULT = 32;
 		public static final int FIRE_DUDE_HEIGHT_DEFAULT = 16;
 		public static final int FIRE_DUDE_WIDTH = (int) (FIRE_DUDE_WIDTH_DEFAULT * Game.SCALE);
@@ -30,7 +41,10 @@ public class Constants {
 		public static final int ICE_DUDE_HEIGHT_DEFAULT = 16;
 		public static final int ICE_DUDE_WIDTH = (int) (ICE_DUDE_WIDTH_DEFAULT * Game.SCALE);
 		public static final int ICE_DUDE_HEIGHT = (int) (ICE_DUDE_HEIGHT_DEFAULT * Game.SCALE);
-
+		public static final int AKAZA_WIDTH_DEFAULT = 50;
+		public static final int AKAZA_HEIGHT_DEFAULT = 50;
+		public static final int AKAZA_WIDTH = (int) (AKAZA_WIDTH_DEFAULT * Game.SCALE);
+		public static final int AKAZA_HEIGHT = (int) (AKAZA_HEIGHT_DEFAULT * Game.SCALE);
 		public static final int FIRE_DUDE_DRAWOFFSET_X = (int)(10*Game.SCALE);
 
 		public static final int ICE_DUDE_DRAWOFFSET_X = (int)(0*Game.SCALE);
@@ -43,6 +57,8 @@ public class Constants {
 					switch (enemy_state) {
 						case IDLE, ATTACK:
 							return 4;
+						case DEAD:
+							return 1;
 
 					}
 				case ICE_DUDE:
@@ -51,6 +67,8 @@ public class Constants {
 							return 6;
 						case ATTACK:
 							return 4;
+						case DEAD:
+							return 1;
 					}
 			}
 			return 0;
@@ -59,9 +77,13 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch (enemy_type) {
 				case FIRE_DUDE:
-					return 10;
+					return 24;
 				case ICE_DUDE:
-					return 15;
+					return 30;
+				case AKAZA:
+					return 60;
+				case TRAP:
+					return 100;
 				default:
 					return 1;
 			}
@@ -71,9 +93,12 @@ public class Constants {
 			switch (enemy_type) {
 				case FIRE_DUDE:
 					return 15;
-
 				case ICE_DUDE:
 					return 3;
+				case AKAZA:
+					return 1;
+				case TRAP:
+					return 1000;
 				default:
 					return 0;
 			}

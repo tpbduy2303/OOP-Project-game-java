@@ -2,6 +2,7 @@ package entities;
 
 
 import Main.Game;
+import gamestates.Playing;
 import utilz.Constants;
 
 import java.awt.geom.Rectangle2D;
@@ -52,7 +53,7 @@ public abstract class Enemy extends Entity{
         }
     }
     protected void move(int[][] lvlData){
-        float xSpeed = 0.5f;
+        float xSpeed = 0;
 
         if(walkDir == LEFT)
             xSpeed -= walkSpeed;
@@ -60,12 +61,11 @@ public abstract class Enemy extends Entity{
             xSpeed += walkSpeed;
 
 
-        if (CanMoveHere(hitbox.x, hitbox.y, hitbox.width, hitbox.height, lvlData))
+        if (CanMoveHere(hitbox.x+= xSpeed, hitbox.y, hitbox.width , hitbox.height, lvlData))
             if (IsFloor(hitbox,xSpeed,lvlData)){
                 hitbox.x += xSpeed;
                 return;
             }
-
         changeWalkDir();
     }
 
@@ -104,9 +104,8 @@ public abstract class Enemy extends Entity{
     public void hurt(int amount) {
         currentHealth -= amount;
         if (currentHealth <= 0){
-            System.out.println("daed");
-            newState(IDLE);
-            active = false;
+            newState(DEAD);
+
         } else {
             newState(ATTACK);
         }
@@ -127,6 +126,7 @@ public abstract class Enemy extends Entity{
                 aniIndex = 0;
                     switch (enemyState){
                         case ATTACK -> enemyState = IDLE;
+                        case DEAD -> active = false;
                     }
             }
         }
@@ -157,4 +157,5 @@ public abstract class Enemy extends Entity{
     public boolean isActive() {
         return active;
     }
+
 }

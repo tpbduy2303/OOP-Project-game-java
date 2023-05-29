@@ -124,8 +124,8 @@ public class Player extends Entity{
 			hitbox.x = xLvlOffset;
 		}
 		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - xLvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
-		drawHitbox(g, xLvlOffset);
-		drawAttackBox(g, xLvlOffset);
+//		drawHitbox(g, xLvlOffset);
+//		drawAttackBox(g, xLvlOffset);
 		drawUI(g);
 
 	}
