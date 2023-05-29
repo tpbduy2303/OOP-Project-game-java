@@ -10,6 +10,7 @@ import gamestates.Playing;
 import Main.Game;
 import utilz.LoadSave;
 
+
 public class GameCompletedOverlay {
     private Playing playing;
     private BufferedImage img;
@@ -64,9 +65,12 @@ public class GameCompletedOverlay {
     public void mouseReleased(MouseEvent e) {
         if (isIn(quit, e)) {
             if (quit.isMousePressed()) {
-                playing.resetAll();
-                playing.resetGameCompleted();
-                playing.setGamestate(Gamestate.MENU);
+//                playing.resetAll();
+//                playing.resetGameCompleted();
+//                playing.setGamestate(Gamestate.MENU);
+                System.exit(0);
+
+
 
             }
         }
