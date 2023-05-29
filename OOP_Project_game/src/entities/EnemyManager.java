@@ -76,7 +76,7 @@ public class EnemyManager {
     }
     private void drawAkaza(Graphics g, int xLvlOffset) {
         for (Akaza a : akazas) {
-            g.drawImage(akazaArr,(int)a.getHitbox().x - xLvlOffset ,(int)a.getHitbox().y ,AKAZA_WIDTH*2,AKAZA_HEIGHT*2,null);
+            g.drawImage(akazaArr,(int)a.getHitbox().x - xLvlOffset + 2*a.flipX(),(int)a.getHitbox().y ,AKAZA_WIDTH*2*a.flipW(),AKAZA_HEIGHT*2,null);
 //            a.drawHitbox(g,xLvlOffset);
 //            a.drawAttackBox(g,xLvlOffset);
             a.drawHP(g,xLvlOffset);

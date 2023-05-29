@@ -53,7 +53,7 @@ public abstract class Enemy extends Entity{
         }
     }
     protected void move(int[][] lvlData){
-        float xSpeed = 0;
+        float xSpeed = 0f;
 
         if(walkDir == LEFT)
             xSpeed -= walkSpeed;
@@ -61,7 +61,7 @@ public abstract class Enemy extends Entity{
             xSpeed += walkSpeed;
 
 
-        if (CanMoveHere(hitbox.x+= xSpeed, hitbox.y, hitbox.width , hitbox.height, lvlData))
+        if (CanMoveHere(hitbox.x+ xSpeed, hitbox.y, hitbox.width , hitbox.height, lvlData))
             if (IsFloor(hitbox,xSpeed,lvlData)){
                 hitbox.x += xSpeed;
                 return;

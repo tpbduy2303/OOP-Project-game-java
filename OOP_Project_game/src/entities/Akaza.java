@@ -6,6 +6,7 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
 
 public class Akaza extends Enemy{
@@ -56,12 +57,12 @@ public class Akaza extends Enemy{
 //                // case IDLE:
 //                //    enemyState = RUNNING
 //                case IDLE: //RUNNING
-//                    if (canSeePlayer(lvlData, player)) {
-//                        turnTowardsPlayer(player);
+                    if (canSeePlayer(lvlData, player)) //{
+                        turnTowardsPlayer(player);
 //                        if (isPlayerCloseForAttack(player))
 //                            newState(ATTACK);
 //                    }
-//                    move(lvlData);
+                    move(lvlData);
 //                    break;
 //                case ATTACK:
 //                    if (aniIndex == 0)
@@ -83,5 +84,19 @@ public class Akaza extends Enemy{
         g.setColor(Color.red);
         g.fillRect((int) hitbox.x- xLvlOffset, (int) hitbox.y, healthWidth, healthBarHeight);
     }
+    public int flipX() {
+        if (walkDir == RIGHT)
+            return width;
+        else
+            return 0;
+    }
 
+    public int flipW() {
+        if (walkDir == RIGHT)
+            return -1;
+        else
+            return 1;
+
+    }
 }
+
