@@ -10,6 +10,7 @@ public class GameWindow {
     public GameWindow(GamePanel gamePanel) {
         jframe = new JFrame(null, null);
 //        jframe.setSize(1900	, 1200);
+	jframe.setResizable(false);    
         jframe.add(gamePanel);
         jframe.pack();
         jframe.setLocationRelativeTo(null);
