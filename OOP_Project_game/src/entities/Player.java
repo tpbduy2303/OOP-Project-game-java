@@ -27,7 +27,7 @@ public class Player extends Entity{
     private int playerAction = IDLE;
 	private boolean moving = false, attacking1 = false, attacking2 = false;
 	private boolean left, up, right, down, jump;
-	private float playerSpeed = 5f * Game.SCALE;
+	private float playerSpeed = 1f * Game.SCALE;
 	private  int [][] lvlData;
 
 	//reposition hitbox
@@ -56,7 +56,7 @@ public class Player extends Entity{
 	private int healthBarYStart = (int) (14 * Game.SCALE);
 
 	private int maxHealth = 1000;
-	private int currentHealth = maxHealth;
+	private float currentHealth = maxHealth;
 	private int healthWidth = healthBarWidth;
 
 	// AttackBox
@@ -199,8 +199,8 @@ public class Player extends Entity{
     }
 
 	private void jump() {
-//		if(inAir)
-//			return;
+		if(inAir)
+			return;
 		inAir =true;
 		airSpeed = jumpSpeed;
 	}
@@ -267,7 +267,7 @@ public class Player extends Entity{
 			}
     	}
 	}
-	public void changeHealth(int value) {
+	public void changeHealth(float value) {
 		currentHealth += value;
 
 		if (currentHealth <= 0)

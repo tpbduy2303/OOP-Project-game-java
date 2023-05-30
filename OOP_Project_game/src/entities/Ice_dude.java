@@ -65,7 +65,7 @@ public class Ice_dude extends Enemy {
                         attackChecked = false;
 
                     // Changed the name for checkEnemyHit to checkPlayerHit
-                    if (aniIndex == 2 || !attackChecked)
+                    if (aniIndex == 3 && !attackChecked)
                         checkPlayerHit(attackBox, player);
 
                     break;
