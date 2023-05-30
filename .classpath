@@ -7,6 +7,5 @@
 	</classpathentry>
 	<classpathentry kind="src" path="OOP_Project_game/res"/>
 	<classpathentry kind="src" path="OOP_Project_game/src"/>
-	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

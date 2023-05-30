@@ -81,7 +81,7 @@ public class Constants {
 				case ICE_DUDE:
 					return 30;
 				case AKAZA:
-					return 60;
+					return 500;
 				case TRAP:
 					return 100;
 				default:
@@ -89,14 +89,14 @@ public class Constants {
 			}
 		}
 
-		public static int GetEnemyDmg(int enemy_type) {
+		public static float GetEnemyDmg(int enemy_type) {
 			switch (enemy_type) {
 				case FIRE_DUDE:
 					return 15;
 				case ICE_DUDE:
-					return 3;
+					return 30;
 				case AKAZA:
-					return 1;
+					return 0.3f;
 				case TRAP:
 					return 1000;
 				default:

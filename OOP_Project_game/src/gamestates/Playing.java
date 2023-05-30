@@ -126,6 +126,7 @@ public class Playing extends State implements Statemethods {
         gameCompleted = false;
         paused = false;
         player.resetAll();
+        newStageOffset = 0;
         enemyManager.resetAllEnemies();
     }
 
