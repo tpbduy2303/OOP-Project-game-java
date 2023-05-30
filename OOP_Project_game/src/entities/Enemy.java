@@ -107,7 +107,7 @@ public abstract class Enemy extends Entity{
             newState(DEAD);
 
         } else {
-            newState(ATTACK);
+            newState(IDLE);
         }
 
     }
