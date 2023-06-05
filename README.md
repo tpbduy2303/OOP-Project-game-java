@@ -1,4 +1,7 @@
 # OOP-Project-game-java
+<p align="center">
+  <img src="2.png" alt="Logo">
+</p>
 <h1 align="center"> Demon Slayer </h1>
 <h3 align="center"> HCMIU - OOP Final Project - Semester 2 2022 - 2023 </h3>
 
@@ -14,7 +17,6 @@
       <ol>
         <li><a href="#intro"> Introduction</a></li>
         <li><a href="#rules"> Rules</a></li>
-        <li><a href="#demo"> Demo</a></li>
       </ol>
     </li>
     <li><a href="#about-the-project"> ➤ About The Project</a>
@@ -25,7 +27,6 @@
         <li><a href="#upgraded-features"> Upgraded Features</a></li>
         <li><a href="#future-features"> Future Features</a></li>
         <li><a href="#challenges"> challenges</a></li>
-        <li><a href="#tasks-allocation"> Tasks Allocation</a></li>
       </ol>
     </li>
     <li><a href="#references"> ➤ References</a></li>
@@ -43,12 +44,12 @@
 </p>
 
 <h3 id="rules"> Rules </h3>
-  <img src="data/1.png" alt="rule 1">
+  <img src="1.png" alt="rule 1">
 <h3 id="demon"> Demon </h3>
-  <img src="data/dmon.png" alt="demon">
+  <img src="dmon.png" alt="demon">
   
 <h3 id="gameplay"> Gameplay </h3>
-  <img src="data/gp.png" alt="demo">
+  <img src="gp.png" alt="demo">
 
 
 <!-- ABOUT THE PROJECT -->
